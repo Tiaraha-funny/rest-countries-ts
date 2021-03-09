@@ -5,7 +5,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.StrictMode>    
     <RestCountryApp/>
   </React.StrictMode>,
   document.getElementById('root')
