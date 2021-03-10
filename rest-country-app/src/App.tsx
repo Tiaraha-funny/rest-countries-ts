@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Link, Route,  Switch } from 'react-router-dom';
+import Details from './components/Details';
 import { GlobalContextProvider } from './components/GlobalContext';
 import Header from './components/Header';
 import DarkMode from './Pages/DarkMode'
@@ -16,6 +17,9 @@ function RestCountryApp() {
                     </Route>
                     <Route exact path="/dark-mode">
                         <DarkMode/>
+                    </Route>
+                    <Route path="/countryDetail/:detailsId">
+                        <Details/>
                     </Route>
                 </Switch>
         

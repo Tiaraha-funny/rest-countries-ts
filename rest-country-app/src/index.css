@@ -12,18 +12,7 @@ code {
     monospace;
 }
 
-img {
-  max-width: 100%;
-}
-
 li {
-  list-style: none;
-  padding: 0;
-  margin: 10px;
-}
-
-ul {
-  width: 80%;
-  margin: auto;
-  padding: 0;
+  border: none;
+  color: rgb(233, 231, 231);
 }

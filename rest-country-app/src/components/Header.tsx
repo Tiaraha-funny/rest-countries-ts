@@ -1,28 +1,26 @@
-import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { createGlobalStyle } from 'styled-components';
-import { GlobalContext } from './GlobalContext';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { HeaderStyle } from '../styles/HeaderStyle';
 
 function Header() {
 
-    const { bgColor } = useContext(GlobalContext);
+    const [ bgColor, setBgColor ] = useState(true);
 
-    const styleBody = createGlobalStyle`
-html, body {
-    background-color: {`${bgColor ? "light-gray" : "white"}`}
-}
-`;
+    function ChangeBackgroundColor() {
+        setBgColor(false);
+        console.log("mode dark");
+    }
 
     return (
-        <header>
+        <HeaderStyle>
             <Link to="/">
                 Home
             </Link>
 
-            <Link to="/dark-mode">
-               <button onClick={changeBgColor}> Dark mode</button>
-            </Link>
-        </header>
+            <button onClick={ChangeBackgroundColor}>
+                dark mode
+            </button>
+        </HeaderStyle>
     )
 }
 

@@ -1,6 +1,5 @@
 import { type } from "node:os";
-import { createContext, useContext, useEffect, useReducer, useState } from "react";
-import SearchCountry from "./SearchCountry";
+import { createContext, useEffect, useReducer } from "react";
 
 const DEFAULT_COUNTRIES_API = "https://restcountries.eu/rest/v2/all";
 
@@ -11,25 +10,48 @@ type Country = {
     population: number,
     region: string,
     capital: string,
+    topLevelDomain: string[],
+    currencies: Curencies[],
+    languages: Languages[],
+    nativeName: string,
+    subregion: string,
+    borders: string[],
+    alpha3Code: string,
+}
+
+type Languages = {
+    iso639_1: string,
+    nativeName: string,
+    name: string,
+    iso639_2: string
+}
+
+type Curencies = {
+    code: string,
+    name: string,
+    symbol: string
 }
 
 type State = {
     country: Country[],
     loading: boolean,
     search: Country[],
-    bgColor: boolean,
+    bgColor?: boolean,
+    dispatch: React.Dispatch<any>;
 }
 
 export const initialState: State = {
     country: [],
     loading: true,
     search: [],
-    bgColor: true
+    bgColor: true,
+    dispatch: () => null
 }
 
 type Action =
     | { type: "DEFAULT_COUNTRIES", country: Country[] }
-    | { type: "SEARCH_COUNTRY", search: Country[] }
+    | { type: "SEARCH_COUNTRY", searchCountry: Country[] }
+    | { type: "SEARCH_REGION", searchRegion: Country[] }
     | { type: "CHANGE_BACKGROUND-COLOR", bgColor: boolean }
 
 export const GlobalContext = createContext(initialState);
@@ -47,7 +69,7 @@ function reducer(state: State = initialState, action: Action) {
         case "SEARCH_COUNTRY": {
             return {
                 ...state,
-                search: action.search
+                country: action.searchCountry
             }
         }
 
@@ -58,6 +80,12 @@ function reducer(state: State = initialState, action: Action) {
             }
         }
 
+        case "SEARCH_REGION": {
+            return {
+                ...state,
+                country: action.searchRegion
+            }
+        }
         default: {
             return state;
         }
@@ -67,7 +95,6 @@ function reducer(state: State = initialState, action: Action) {
 export const GlobalContextProvider: React.FC = ({ children }) => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
-    const [ searchState, setSearchState ] = useState("");
 
     const fetchDataCountries = async () => {
         const response = await fetch(DEFAULT_COUNTRIES_API);
@@ -79,15 +106,6 @@ export const GlobalContextProvider: React.FC = ({ children }) => {
         fetchDataCountries();
     }, [])
 
-    function searchCountryByName() {
-        const filterCountry = state.country.filter(countryName => countryName.name.toLowerCase().includes(searchState.toLowerCase()))
-        dispatch({ type: "SEARCH_COUNTRY", search: filterCountry })
-    }
-
-    function changeValue(e) {
-        const getValue = e.target.value;
-    }
-
     function changeBgColor() {
         console.log("change me");
         dispatch({ type: "CHANGE_BACKGROUND-COLOR", bgColor: false })
@@ -95,7 +113,13 @@ export const GlobalContextProvider: React.FC = ({ children }) => {
 
 
     return (
-        <GlobalContext.Provider value={{ loading: state.loading, country: state.country, search: state.search, bgColor: state.bgColor, searchCountryByName }}>
+        <GlobalContext.Provider value={{ 
+            loading: state.loading, 
+            country: state.country, 
+            search: state.search, 
+            bgColor: state.bgColor,
+            dispatch,
+        }}>
             {children}
         </GlobalContext.Provider>
     )
