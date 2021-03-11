@@ -1,7 +1,10 @@
-import { createGlobalStyle } from "styled-components";
+import { useContext, useState } from "react";
+import { createGlobalStyle, ThemeContext } from "styled-components";
 import { useThemeContext } from "../components/ThemeContext";
 
-// const theme = useThemeContext();
+// const {useThemeContext} = useContext(ThemeContext);
+console.log(useThemeContext, "theme");
+
 
 export const GlobalStyle = createGlobalStyle`
 html, body {

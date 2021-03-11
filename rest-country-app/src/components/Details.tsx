@@ -11,50 +11,52 @@ export default function Details() {
     }
 
     console.log(country);
-    
+
 
     const { detailsId } = useParams<DetailsId>();
     const goBack = useHistory();
 
     const findId = country && country.filter(nameAsId => nameAsId.name == detailsId);
     console.log(findId);
-    
+
 
     return (
         <div>
-            <button>Go back</button>
+            <Link to="/">
+                <button>Go back</button>
+            </Link>
 
             {country && findId?.map(detail => {
                 return (
-                    <DetailStyle>
+                    <DetailStyle key={detail.name}>
                         <p><img src={detail.flag} alt={detail.name} /></p>
                         <div className="container">
-                        <h2>{detail.name}</h2>
-                        <article>
-                            <p>Native Name: {detail.name}</p>
-                            <p>Population: {detail.population}</p>
-                            <p>Region: {detail.region}</p>
-                            <p>Sub region: {detail.subregion}</p>
-                            <p>Capital: {detail.capital}</p>
-                        </article>
-                        <article>
-                            <p>Top level domain: {detail.topLevelDomain}</p>
-                            <p>Curencies: {detail.currencies.map(cur => cur.name)}</p>
-                            <p>Languages: {detail.languages.map(lang => lang.name)}</p>
-                        </article>
-                        <article>
-                            <p> Border Countries: </p>
-                            {detail.borders.map(bor => {
-                                const findBorder = country.find(borderName => borderName.alpha3Code == bor)
-                                return (
-                                    <Link  to={`/countryDetail/${findBorder?.name}`} key={findBorder?.name}>
-                                    <button>{findBorder?.name}</button>
-                                </Link>
-                            )
+                            <h2>{detail.name}</h2>
+                            <article>
+                                <p>Native Name: {detail.name}</p>
+                                <p>Population: {detail.population}</p>
+                                <p>Region: {detail.region}</p>
+                                <p>Sub region: {detail.subregion}</p>
+                                <p>Capital: {detail.capital}</p>
+                            </article>
+                            <article>
+                                <p>Top level domain: {detail.topLevelDomain}</p>
+                                <p>Curencies: {detail.currencies.map(cur => cur.name)}</p>
+                                <p>Languages: {detail.languages.map(lang => lang.name)}</p>
+                            </article>
+                            <article>
+                                <p> Border Countries: </p>
+                                {detail.borders.map(bor => {
+                                    const findBorder = country.find(borderName => borderName.alpha3Code == bor)
+                                    return (
+                                        <Link to={`/countryDetail/${findBorder?.name}`} key={findBorder?.name}>
+                                            <button>{findBorder?.name}</button>
+                                        </Link>
+                                    )
                                 })
-                            }
+                                }
 
-                        </article>
+                            </article>
                         </div>
                     </DetailStyle>
                 )

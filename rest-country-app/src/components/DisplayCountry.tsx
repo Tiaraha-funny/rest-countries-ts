@@ -16,7 +16,7 @@ export default function DisplayCountry() {
                                 <aside>
                                     <h2>{country.name}</h2>
                                     <p>Population: {country.population}</p>
-                                    <p>Region: {country.area}</p>
+                                    <p>Region: {country.region}</p>
                                     <p>Capital: {country.capital}</p>
                                 </aside>
                             </ListCountries>

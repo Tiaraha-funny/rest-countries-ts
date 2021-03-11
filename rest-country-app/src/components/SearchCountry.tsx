@@ -16,8 +16,8 @@ export default function SearchCountry() {
 
     function searchCountryByRegion(e: any) {
         setSearchRegion(e.target.value);
-        const filterRegion = country.filter(region => region.region.toLowerCase().includes(searchRegion.toLocaleLowerCase()));
-        console.log(filterRegion);        
+        const filterRegion = country?.filter(region => region.region.toLowerCase().includes(searchRegion.toLocaleLowerCase()));
+        console.log("region", filterRegion);
         dispatch({type: "SEARCH_REGION", searchRegion: filterRegion})
     }
 
@@ -30,11 +30,11 @@ export default function SearchCountry() {
                 <input type="text" name="search" value={searchState} onChange={searchCountryByName} placeholder="search for a country" />
             </p>
             <p>
-                <select name="region">
-                    <option value="country">search by region</option>
+                <select name="region" value={searchRegion} onChange={searchCountryByRegion} >
+                    <option value="search">search by region</option>
                     {country && country?.map(region => {
                         return (
-                            <option key={region.name} value={searchRegion} onClick={searchCountryByRegion} >{region.region}</option>
+                            <option key={region.name} value={`${region.region}`}>{region.region}</option>
                         )
                     })}
                 </select>

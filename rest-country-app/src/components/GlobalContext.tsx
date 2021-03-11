@@ -1,5 +1,5 @@
 import { type } from "node:os";
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 
 const DEFAULT_COUNTRIES_API = "https://restcountries.eu/rest/v2/all";
 
@@ -36,7 +36,7 @@ type State = {
     country: Country[],
     loading: boolean,
     search: Country[],
-    bgColor?: boolean,
+    bgColor: boolean,
     dispatch: React.Dispatch<any>;
 }
 
@@ -45,7 +45,7 @@ export const initialState: State = {
     loading: true,
     search: [],
     bgColor: true,
-    dispatch: () => null
+    dispatch: () => null,
 }
 
 type Action =
@@ -106,11 +106,10 @@ export const GlobalContextProvider: React.FC = ({ children }) => {
         fetchDataCountries();
     }, [])
 
-    function changeBgColor() {
+    function ChangeBackgroundColor() {
         console.log("change me");
         dispatch({ type: "CHANGE_BACKGROUND-COLOR", bgColor: false })
     }
-
 
     return (
         <GlobalContext.Provider value={{ 
@@ -119,6 +118,7 @@ export const GlobalContextProvider: React.FC = ({ children }) => {
             search: state.search, 
             bgColor: state.bgColor,
             dispatch,
+            // ChangeBackgroundColor,
         }}>
             {children}
         </GlobalContext.Provider>
