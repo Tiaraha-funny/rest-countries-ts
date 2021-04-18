@@ -4,11 +4,11 @@ import { Container, ListCountries } from '../styles/ListContries';
 import { GlobalContext } from './GlobalContext';
 
 export default function DisplayCountry() {
-    const { country, loading } = useContext(GlobalContext);
+    const { countries, loading } = useContext(GlobalContext);
     return (
         <Container>
             {loading ? <h1>Loading...</h1> :
-                country.map(country => {
+                countries.map(country => {
                     return (
                         <Link to={`/countryDetail/${country.name}`} key={country.name}>
                             <ListCountries>

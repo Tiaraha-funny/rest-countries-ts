@@ -1,17 +1,18 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { HeaderStyle } from '../styles/HeaderStyle';
 import { GlobalContext } from './GlobalContext';
 
-function Header() {
-
-    // const {ChangeBackgroundColor} = useContext(GlobalContext)
-    function ChangeBackgroundColor () {}
+function Header({ }) {
+    function ChangeBackgroundColor () {
+        console.log('change');
+        
+    }
 
     return (
         <HeaderStyle>
             <Link to="/">
-                Home
+                Where in the world ?
             </Link>
 
             <button onClick={ChangeBackgroundColor}>

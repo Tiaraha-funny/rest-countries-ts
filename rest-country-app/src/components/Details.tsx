@@ -5,18 +5,18 @@ import { DetailStyle } from '../styles/DetailStyle';
 import { GlobalContext } from './GlobalContext';
 
 export default function Details() {
-    const { country } = useContext(GlobalContext);
+    const { countries } = useContext(GlobalContext);
     type DetailsId = {
         detailsId: string
     }
 
-    console.log(country);
+    console.log(countries);
 
 
     const { detailsId } = useParams<DetailsId>();
     const goBack = useHistory();
 
-    const findId = country && country.filter(nameAsId => nameAsId.name == detailsId);
+    const findId = countries && countries.filter(nameAsId => nameAsId.name == detailsId);
     console.log(findId);
 
 
@@ -26,7 +26,7 @@ export default function Details() {
                 <button>Go back</button>
             </Link>
 
-            {country && findId?.map(detail => {
+            {countries && findId?.map(detail => {
                 return (
                     <DetailStyle key={detail.name}>
                         <p><img src={detail.flag} alt={detail.name} /></p>
@@ -47,7 +47,7 @@ export default function Details() {
                             <article>
                                 <p> Border Countries: </p>
                                 {detail.borders.map(bor => {
-                                    const findBorder = country.find(borderName => borderName.alpha3Code == bor)
+                                    const findBorder = countries.find(borderName => borderName.alpha3Code == bor)
                                     return (
                                         <Link to={`/countryDetail/${findBorder?.name}`} key={findBorder?.name}>
                                             <button>{findBorder?.name}</button>

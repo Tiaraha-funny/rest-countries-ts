@@ -3,7 +3,6 @@ import { createGlobalStyle, ThemeContext } from "styled-components";
 import { useThemeContext } from "../components/ThemeContext";
 
 // const {useThemeContext} = useContext(ThemeContext);
-console.log(useThemeContext, "theme");
 
 
 export const GlobalStyle = createGlobalStyle`

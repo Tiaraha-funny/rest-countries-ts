@@ -33,7 +33,7 @@ type Curencies = {
 }
 
 type State = {
-    country: Country[],
+    countries: Country[],
     loading: boolean,
     search: Country[],
     bgColor: boolean,
@@ -41,7 +41,7 @@ type State = {
 }
 
 export const initialState: State = {
-    country: [],
+    countries: [],
     loading: true,
     search: [],
     bgColor: true,
@@ -49,7 +49,7 @@ export const initialState: State = {
 }
 
 type Action =
-    | { type: "DEFAULT_COUNTRIES", country: Country[] }
+    | { type: "DEFAULT_COUNTRIES", countries: Country[] }
     | { type: "SEARCH_COUNTRY", searchCountry: Country[] }
     | { type: "SEARCH_REGION", searchRegion: Country[] }
     | { type: "CHANGE_BACKGROUND-COLOR", bgColor: boolean }
@@ -61,7 +61,7 @@ function reducer(state: State = initialState, action: Action) {
         case "DEFAULT_COUNTRIES": {
             return {
                 ...state,
-                country: action.country,
+                countries: action.countries,
                 loading: false
             }
         }
@@ -69,7 +69,7 @@ function reducer(state: State = initialState, action: Action) {
         case "SEARCH_COUNTRY": {
             return {
                 ...state,
-                country: action.searchCountry
+                countries: action.searchCountry
             }
         }
 
@@ -83,7 +83,7 @@ function reducer(state: State = initialState, action: Action) {
         case "SEARCH_REGION": {
             return {
                 ...state,
-                country: action.searchRegion
+                countries: action.searchRegion
             }
         }
         default: {
@@ -99,7 +99,7 @@ export const GlobalContextProvider: React.FC = ({ children }) => {
     const fetchDataCountries = async () => {
         const response = await fetch(DEFAULT_COUNTRIES_API);
         const result = await response.json();
-        dispatch({ type: "DEFAULT_COUNTRIES", country: result })
+        dispatch({ type: "DEFAULT_COUNTRIES", countries: result })
     }
 
     useEffect(() => {
@@ -114,7 +114,7 @@ export const GlobalContextProvider: React.FC = ({ children }) => {
     return (
         <GlobalContext.Provider value={{ 
             loading: state.loading, 
-            country: state.country, 
+            countries: state.countries, 
             search: state.search, 
             bgColor: state.bgColor,
             dispatch,

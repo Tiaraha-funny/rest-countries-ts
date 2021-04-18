@@ -1,28 +1,43 @@
-import React from 'react'
-import { BrowserRouter as Router, Link, Route,  Switch } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import Details from './components/Details';
 import { GlobalContextProvider } from './components/GlobalContext';
 import Header from './components/Header';
-import DarkMode from './Pages/DarkMode'
-import Home from './Pages/Home'
+import Home from './Pages/Home';
+
 
 function RestCountryApp() {
+
+    const [bgColor, setBgColor] = useState("white");
+
+    function ChangeBackgroundColor() {
+        setBgColor("black")
+        window.addEventListener('click', changeModeColor)
+    }
+
+    function changeModeColor() {
+        document.body.style.backgroundColor = `background-color: ${bgColor}`
+        console.log(bgColor);
+    }
+
+    useEffect(() => {
+        ChangeBackgroundColor()
+    }, [])
+
+
     return (
         <GlobalContextProvider>
             <Router>
-            <Header/>
+                <Header />
                 <Switch>
                     <Route exact path="/">
-                        <Home/>
-                    </Route>
-                    <Route exact path="/dark-mode">
-                        <DarkMode/>
+                        <Home />
                     </Route>
                     <Route path="/countryDetail/:detailsId">
-                        <Details/>
+                        <Details />
                     </Route>
                 </Switch>
-        
+
             </Router>
         </GlobalContextProvider>
     )

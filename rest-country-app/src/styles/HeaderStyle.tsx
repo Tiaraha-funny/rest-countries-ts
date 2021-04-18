@@ -5,3 +5,10 @@ display: flex;
 flex-direction: row;
 justify-content: space-between;
 `;
+
+export const FormStyle = styled.form`
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-atems: center; 
+`
